@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo | Visión General - Rebranding Snapdocs</title>
+    <!-- Importación de la Tipografía Poppins desde Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome para Iconografía Moderna -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-primary: #030307;
+            --bg-secondary: #080811;
+            --accent-grafic: #8b5cf6; /* Púrpura Royal de Grafic Store */
+            --accent-snapdocs: #ff6b00; /* Naranja de Snapdocs */
+            --glow-1: var(--accent-grafic);
+            --glow-2: #3b82f6;
+            --text-main: #f5f5f7;
+            --text-muted: #86868b;
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* LIENZO DE PARTICULAS Y DESTELLOS DE FONDO */
+        #bg-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .ambient-glows {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(160px);
+            opacity: 0.22;
+            mix-blend-mode: screen;
+            transition: var(--transition-smooth);
+        }
+
+        .glow-1 {
+            width: 700px;
+            height: 700px;
+            background: var(--glow-1);
+            top: -15%;
+            left: -10%;
+        }
+
+        .glow-2 {
+            width: 600px;
+            height: 600px;
+            background: var(--glow-2);
+            bottom: -15%;
+            right: -10%;
+        }
+
+        /* CONTENEDOR PRINCIPAL DE DIAPOSITIVAS (PROPORCIONES 16:9) */
+        .presentation-frame {
+            position: relative;
+            width: 92vw;
+            height: 51.75vw;
+            max-width: 1366px;
+            max-height: 768px;
+            background: rgba(8, 8, 17, 0.55);
+            border-radius: 28px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(40px);
+            z-index: 10;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 60px 120px -30px rgba(0,0,0,0.85);
+        }
+
+        /* HEADER */
+        .presentation-header {
+            height: 65px;
+            padding: 0 45px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 20;
+        }
+
+        .agency-logo {
+            font-weight: 800;
+            font-size: 19px;
+            letter-spacing: 1.5px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition-smooth);
+        }
+
+        .agency-logo span {
+            color: var(--accent-grafic);
+            text-shadow: 0 0 15px rgba(139, 92, 246, 0.6);
+            transition: var(--transition-smooth);
+        }
+
+        .brand-indicator {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+            background: rgba(255,255,255,0.03);
+            padding: 6px 18px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            letter-spacing: 0.5px;
+        }
+
+        /* CONTENEDOR DE SLIDES */
+        .slides-viewport {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 40px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.97) translateY(15px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 15;
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1) translateY(0);
+        }
+
+        /* NAVEGACIÓN Y CONTROLES */
+        .presentation-footer {
+            height: 65px;
+            padding: 0 45px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid var(--glass-border);
+            z-index: 20;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: scale(1.08);
+            border-color: rgba(255, 255, 255, 0.18);
+        }
+
+        .slide-counter {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .progress-dots {
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .dot.active {
+            background: var(--accent-grafic);
+            width: 28px;
+            border-radius: 12px;
+        }
+
+        /* --- ESTILOS DE DISEÑO ENFOCADO EN IMAGEN (80% ALTURA) --- */
+        .slide-focused-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        .focused-media-container {
+            width: 100%;
+            height: 80%; /* Ocupa exactamente el 80% del slide */
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* TEXTOS */
+        .slide-title-large {
+            font-size: 54px;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+        }
+
+        .slide-title-standard {
+            font-size: 40px;
+            margin-bottom: 20px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #fff, #a1a1a6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-desc {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        /* COMPONENTES DE DISEÑO INTERACTIVOS (GLASSMORPHISM) */
+        .glass-panel {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            padding: 30px;
+            transition: var(--transition-smooth);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        /* CONTENEDORES DE CONTENIDO MULTIMEDIA */
+        .media-placeholder {
+            position: relative;
+            background: rgba(3, 3, 7, 0.8);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        .media-placeholder img, .media-placeholder video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 1; /* Siempre visible directamente en vista previa */
+            transition: opacity 0.6s ease;
+        }
+
+        .placeholder-info {
+            z-index: 5;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            pointer-events: none;
+            transition: var(--transition-smooth);
+        }
+
+        .placeholder-info i {
+            font-size: 40px;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+        }
+
+        /* GRID LAYOUTS */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 45px;
+            height: 100%;
+            align-items: center;
+        }
+
+        /* PORTADA FUTURISTA */
+        .cyber-badge {
+            background: linear-gradient(90deg, rgba(139, 92, 246, 0.15) 0%, rgba(59, 130, 246, 0.15) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            color: #c084fc;
+            padding: 6px 20px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 22px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.15);
+        }
+
+        .text-glow-cyber {
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+            background: linear-gradient(135deg, #fff 40%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* SERVICIOS */
+        .service-list {
+            display: flex;
+            flex-direction: row;
+            gap: 24px;
+            margin-top: 15px;
+            width: 100%;
+        }
+        .service-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(139, 92, 246, 0.08);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-grafic);
+            font-size: 20px;
+        }
+
+        /* CRM CARDS */
+        .crm-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        /* HIGHLIGHTS CARDS */
+        .focused-highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .highlight-large-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-large-card:hover {
+            border-color: var(--accent-snapdocs);
+            background: rgba(255, 107, 0, 0.04);
+            transform: translateY(-8px);
+        }
+
+        .highlight-large-card i {
+            font-size: 48px;
+            color: var(--accent-snapdocs);
+            margin-bottom: 25px;
+            text-shadow: 0 0 20px rgba(255, 107, 0, 0.3);
+        }
+
+        /* ANIMACIONES AL ENTRAR AL SLIDE */
+        .slide-title-large, .slide-title-standard, .text-desc, .glass-panel, .media-placeholder, .service-list {
+            animation: slideInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .slide-title-large { animation-delay: 0.1s; }
+        .slide-title-standard { animation-delay: 0.1s; }
+        .text-desc { animation-delay: 0.2s; }
+        .glass-panel { animation-delay: 0.3s; }
+        .media-placeholder { animation-delay: 0.4s; }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LIENZO DE PARTICULAS (FONDO INTERACTIVO) -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- FONDOS DE DESTELLOS ADAPTATIVOS -->
+    <div class="ambient-glows">
+        <div class="glow-orb glow-1" id="orb1"></div>
+        <div class="glow-orb glow-2" id="orb2"></div>
+    </div>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="presentation-frame">
+        
+        <!-- HEADER -->
+        <div class="presentation-header">
+            <div class="agency-logo" id="header-logo">
+                <i class="fa-solid fa-store"></i> GRAFIC <span>STORE</span>
+            </div>
+            <div class="brand-indicator" id="header-indicator">
+                Demo | Visión general
+            </div>
+        </div>
+
+        <!-- CONTENEDOR DE SLIDES -->
+        <div class="slides-viewport" id="viewport">
+
+            <!-- SLIDE 1: PORTADA CENTRADA ULTRA-FUTURISTA (Demo | Visión general) -->
+            <div class="slide active" data-theme="grafic" data-title="Demo | Visión general">
+                <div style="text-align: center; max-width: 850px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+                    <span class="cyber-badge">Grafic Store Presents</span>
+                    <h1 class="slide-title-large" style="margin-bottom: 25px; line-height: 1.2;">
+                        <span style="font-weight: 400; opacity: 0.85;">DEMO</span> 
+                        <span style="font-weight: 300; opacity: 0.4; margin: 0 10px;">|</span> 
+                        <span style="font-weight: 500;" class="text-glow-cyber">Visión general</span>
+                    </h1>
+                    <p class="text-desc" style="max-width: 650px; font-size: 16px; text-align: center; margin-bottom: 0;">
+                        Un ecosistema conceptual ultra-moderno diseñado para redefinir el posicionamiento digital, unificar la estética de marca y agilizar los procesos de firma hipotecaria.
+                    </p>
+                </div>
+            </div>
+
+            <!-- SLIDE 2: PRESENTACIÓN DE SERVICIOS (DIAGRAMACIÓN FUNCIONAL CENTRADA) -->
+            <div class="slide" data-theme="grafic" data-title="Servicios Creativos">
+                <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+                    <h2 class="slide-title-standard">Optimización de Servicios</h2>
+                    
+                    <div class="service-list">
+                        <!-- Tarjeta de Servicio 1 -->
+                        <div class="glass-panel service-item">
+                            <div class="service-icon"><i class="fa-solid fa-cube"></i></div>
+                            <h4 style="font-weight:700; font-size: 17px; margin-top: 10px;">Sistemas de Diseño Avanzados</h4>
+                            <p style="font-size: 13.5px; color: var(--text-muted); text-align: left; line-height: 1.6;">
+                                Estructuras estéticas modulares, consistentes y escalables bajo estándares de diseño Apple de alta precisión.
+                            </p>
+                        </div>
+                        
+                        <!-- Tarjeta de Servicio 2 -->
+                        <div class="glass-panel service-item">
+                            <div class="service-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                            <h4 style="font-weight:700; font-size: 17px; margin-top: 10px;">Interfaces de Cero Fricción</h4>
+                            <p style="font-size: 13.5px; color: var(--text-muted); text-align: left; line-height: 1.6;">
+                                Micro-interacciones sutiles diseñadas meticulosamente para agilizar transacciones y disminuir el rebote del usuario.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 3: CRM DE LA MARCA (OPTIMIZACIÓN DE PROCESO) -->
+            <div class="slide" data-theme="grafic" data-title="Optimización CRM">
+                <div class="grid-2">
+                    <div>
+                        <span class="cyber-badge" style="background: rgba(139, 92, 246, 0.1);">Workflow Inteligente</span>
+                        <h2 class="slide-title-standard" style="margin-bottom:15px;">CRM Grafic Store</h2>
+                        <p class="text-desc" style="margin-bottom:20px;">Controlamos el pipeline visual adaptativo y las notificaciones para agilizar la interacción y acortar los procesos de contratos hipotecarios de la marca.</p>
+                        
+                        <div class="crm-features">
+                            <div class="glass-panel" style="padding: 20px;">
+                                <i class="fa-solid fa-gauge-high" style="color: var(--accent-grafic); font-size: 20px; margin-bottom: 10px;"></i>
+                                <h4 style="font-size:14px; font-weight:600;">Control Integrado</h4>
+                                <p style="font-size: 12px; color: var(--text-muted); margin-top:5px;">Centralización estratégica de todos tus leads.</p>
+                            </div>
+                            <div class="glass-panel" style="padding: 20px;">
+                                <i class="fa-solid fa-arrows-spin" style="color: var(--accent-grafic); font-size: 20px; margin-bottom: 10px;"></i>
+                                <h4 style="font-size:14px; font-weight:600;">Eficacia Operativa</h4>
+                                <p style="font-size: 12px; color: var(--text-muted); margin-top:5px;">Automatización estricta sin perder calidez.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- CONTENEDOR MULTIMEDIA PARA CRM -->
+                    <div class="media-placeholder">
+                        <!-- REEMPLAZAR_CON_TU_LINK_DE_IMAGEN -->
+                        <img src="image_2abae0.png" alt="CRM Grafic Store">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 4: PROPUESTA SNAPDOCS INTRO (80% ENFOCADO) -->
+            <div class="slide" data-theme="snapdocs" data-title="Propuesta Snapdocs">
+                <div class="slide-focused-layout">
+                    <div class="focused-media-container">
+                        <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
+                            <!-- REEMPLAZAR_CON_TU_LINK_DE_IMAGEN --><a href="https://ibb.co/spmFh7Xb"><img src="https://i.ibb.co/DPV7Ndjz/3.png" alt="3" border="0" /></a>
+                            <img src="image_2a3689.png" alt="Snapdocs Brand Identity Colors">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 5: PROPUESTA PORTADA FACEBOOK (80% FOCUS) -->
+            <div class="slide" data-theme="snapdocs" data-title="Portada de Facebook">
+                <div class="slide-focused-layout">
+                    <div class="focused-media-container">
+                        <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
+                            <!-- REEMPLAZAR_CON_TU_LINK_DE_IMAGEN -->
+                            <img src="<a href="https://ibb.co/5g06Yzzc"><img src="https://i.ibb.co/YFC3DKKj/SNAP-PORTADA-2x.jpg" alt="SNAP-PORTADA-2x" border="0"></a>+(1702X)" alt="Portada de Facebook" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="placeholder-info" style="display: none;">
+                                <i class="fa-brands fa-facebook" style="color: var(--accent-snapdocs)"></i>
+                                <p style="font-weight: 500; font-size: 15px; color: var(--text-main);">Inserta el enlace de tu portada de Facebook en el código HTML</p>
+                                <p style="font-size: 12px; color: var(--text-muted);">(820 x 312 px)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 6: MOCKUP PORTADA EN DISPOSITIVO (80% FOCUS) -->
+            <div class="slide" data-theme="snapdocs" data-title="MOCKUP">
+                <div class="slide-focused-layout">
+                    <div class="focused-media-container">
+                        <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
+                            <!-- REEMPLAZAR_CON_TU_LINK_DE_IMAGEN -->
+                            <img src="https://placehold.co/1200x800/11111b/ff6b00?text=Mockup+Dispositivo+Digital" alt="Mockup en Dispositivo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="placeholder-info" style="display: none;">
+                                <i class="fa-solid fa-desktop" style="color: var(--accent-snapdocs)"></i>
+                                <p style="font-weight: 500; font-size: 15px; color: var(--text-main);">Inserta el enlace de tu Mockup en el código HTML</p>
+                                <p style="font-size: 12px; color: var(--text-muted);">(Dispositivo digital / Laptop)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 7: INTERACTIVE CAROUSEL EN 3 RECUADROS SIMÉTRICOS (80% FOCUS) -->
+            <div class="slide" data-theme="snapdocs" data-title="Carrusel">
+                <div class="slide-focused-layout">
+                    <div class="focused-media-container">
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; height: 100%;">
+                            
+                            <!-- Recuadro 1 -->
+                            <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
+                                <!-- REEMPLAZAR_CON_TU_LINK_DE_IMAGEN_1 -->
+                                <img src="https://placehold.co/500x500/11111b/ff6b00?text=Campaña+1" alt="Imagen Campaña 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="placeholder-info" style="display: none;">
+                                    <i class="fa-solid fa-image" style="color: var(--accent-snapdocs); font-size: 32px;"></i>
+                                    <p style="font-weight: 500; font-size: 13px; color: var(--text-main);">Imagen 1</p>
+                                </div>
+                            </div>
+
+                            <!-- Recuadro 2 -->
+                            <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
+                                <!-- REEMPLAZAR_CON_TU_LINK_DE_IMAGEN_2 -->
+                                <img src="https://placehold.co/500x500/11111b/ff6b00?text=Campaña+2" alt="Imagen Campaña 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="placeholder-info" style="display: none;">
+                                    <i class="fa-solid fa-image" style="color: var(--accent-snapdocs); font-size: 32px;"></i>
+                                    <p style="font-weight: 500; font-size: 13px; color: var(--text-main);">Imagen 2</p>
+                                </div>
+                            </div>
+
+                            <!-- Recuadro 3 -->
+                            <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
+                                <!-- REEMPLAZAR_CON_TU_LINK_DE_IMAGEN_3 --><a href="https://ibb.co/spmFh7Xb"><img src="https://i.ibb.co/DPV7Ndjz/3.png" alt="3" border="0" /></a>
+                                <img src="https://placehold.co/500x500/11111b/ff6b00?text=Campaña+3" alt="Imagen Campaña 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="placeholder-info" style="display: none;">
+                                    <i class="fa-solid fa-image" style="color: var(--accent-snapdocs); font-size: 32px;"></i>
+                                    <p style="font-weight: 500; font-size: 13px; color: var(--text-main);">Imagen 3</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 8: MOCKUP SECUNDARIO (80% FOCUS) -->
+            <div class="slide" data-theme="snapdocs" data-title="Mockup Estaciones">
+                <div class="slide-focused-layout">
+                    <div class="focused-media-container">
+                        <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
+                            <!-- REEMPLAZAR_CON_TU_LINK_DE_IMAGEN -->
+                            <img src="https://placehold.co/1200x800/11111b/ff6b00?text=Estacion+de+Trabajo" alt="Mockup Corporativo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="placeholder-info" style="display: none;">
+                                <i class="fa-solid fa-laptop-code" style="color: var(--accent-snapdocs)"></i>
+                                <p style="font-weight: 500; font-size: 15px; color: var(--text-main);">Inserta aquí el Mockup de la estación de trabajo</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 9: BRAND HIGHLIGHTS (80% FOCUS) -->
+            <div class="slide" data-theme="snapdocs" data-title="Propiedades Clave">
+                <div class="slide-focused-layout">
+                    <div class="focused-media-container">
+                        <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
+                            <!-- REEMPLAZAR_CON_TU_LINK_DE_IMAGEN -->
+                            <img src="image_2b85b9.png" alt="Make mortgage a snap.">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 10: CIERRE / CONTACTO -->
+            <div class="slide" data-theme="grafic" data-title="Cierre">
+                <div class="slide-focused-layout" style="justify-content: center; gap: 40px;">
+                    <div style="text-align: center;">
+                        <span class="cyber-badge" style="box-shadow: 0 0 25px rgba(139, 92, 246, 0.35);">Evoluciona tu Marca hoy</span>
+                        <h1 class="slide-title-large" style="font-size: 58px; margin-bottom: 25px;"><span class="text-glow-cyber">Grafic Store</span></h1>
+                    </div>
+                    <div class="glass-panel" style="display: flex; gap: 50px; padding: 25px 60px; border-radius: 100px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                        <span style="font-size:14px; font-weight:600; letter-spacing: 0.5px;"><i class="fa-solid fa-globe" style="color: var(--accent-grafic); margin-right:8px;"></i> graficstore.com</span>
+                        <span style="font-size:14px; font-weight:600; letter-spacing: 0.5px;"><i class="fa-solid fa-envelope" style="color: var(--accent-grafic); margin-right:8px;"></i> contacto@graficstore.com</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FOOTER (CONTROLES) -->
+        <div class="presentation-footer">
+            <div class="slide-counter" id="slide-num">01 / 10</div>
+            
+            <div class="progress-dots" id="dots-container">
+                <!-- Se autogenerarán progresivamente -->
+            </div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn" id="prev-btn" title="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="nav-btn" id="next-btn" title="Siguiente"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SCRIPT DE INTERACTIVIDAD -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const totalSlides = slides.length;
+            let currentSlideIdx = 0;
+
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const slideCounter = document.getElementById('slide-num');
+            const dotsContainer = document.getElementById('dots-container');
+            const headerLogo = document.getElementById('header-logo');
+            const headerIndicator = document.getElementById('header-indicator');
+
+            // DESTELLOS ADAPTATIVOS DE FONDO
+            const orb1 = document.getElementById('orb1');
+            const orb2 = document.getElementById('orb2');
+
+            // AUTOGENERAR DOTS DE PROGRESO
+            slides.forEach((_, idx) => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (idx === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(idx));
+                dotsContainer.appendChild(dot);
+            });
+
+            const dots = document.querySelectorAll('.dot');
+
+            // SISTEMA DINÁMICO DE NAVEGACIÓN
+            function goToSlide(index) {
+                if (index < 0 || index >= totalSlides) return;
+
+                slides[currentSlideIdx].classList.remove('active');
+                dots[currentSlideIdx].classList.remove('active');
+
+                currentSlideIdx = index;
+                slides[currentSlideIdx].classList.add('active');
+                dots[currentSlideIdx].classList.add('active');
+
+                // Actualizar números de slide
+                slideCounter.textContent = `${String(currentSlideIdx + 1).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+
+                const activeSlide = slides[currentSlideIdx];
+                const theme = activeSlide.getAttribute('data-theme');
+                const title = activeSlide.getAttribute('data-title');
+
+                headerIndicator.textContent = title;
+
+                // CAMBIO DINÁMICO DE IDENTIDAD DE COLOR EN HEADER (GRAFIC STORE vs SNAPDOCS)
+                if (theme === 'snapdocs') {
+                    document.documentElement.style.setProperty('--glow-1', '#ff6b00');
+                    document.documentElement.style.setProperty('--glow-2', '#ff8533');
+                    headerLogo.innerHTML = 'SNAPDOCS';
+                    headerLogo.style.color = 'var(--accent-snapdocs)';
+                    
+                    orb1.style.transform = 'translate(120px, 60px)';
+                    orb2.style.transform = 'translate(-80px, -120px)';
+                } else {
+                    document.documentElement.style.setProperty('--glow-1', '#8b5cf6');
+                    document.documentElement.style.setProperty('--glow-2', '#3b82f6');
+                    headerLogo.innerHTML = '<i class="fa-solid fa-store"></i> GRAFIC <span>STORE</span>';
+                    headerLogo.style.color = 'var(--text-main)';
+
+                    orb1.style.transform = 'translate(0px, 0px)';
+                    orb2.style.transform = 'translate(0px, 0px)';
+                }
+            }
+
+            // EVENTOS DE NAVEGACIÓN
+            prevBtn.addEventListener('click', () => {
+                if (currentSlideIdx > 0) goToSlide(currentSlideIdx - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (currentSlideIdx < totalSlides - 1) goToSlide(currentSlideIdx + 1);
+            });
+
+            // Soporte de navegación por teclado (Flechas de dirección)
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === 'Space') {
+                    if (currentSlideIdx < totalSlides - 1) goToSlide(currentSlideIdx + 1);
+                } else if (e.key === 'ArrowLeft') {
+                    if (currentSlideIdx > 0) goToSlide(currentSlideIdx - 1);
+                }
+            });
+
+            // EFECTO DE PARTICULAS FLOTANTES (FUTURISTA)
+            const canvas = document.getElementById('bg-canvas');
+            const ctx = canvas.getContext('2d');
+
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            const particles = [];
+            for (let i = 0; i < 45; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    size: Math.random() * 2 + 1,
+                    speedX: (Math.random() - 0.5) * 0.3,
+                    speedY: (Math.random() - 0.5) * 0.3,
+                    opacity: Math.random() * 0.4 + 0.1
+                });
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, width, height);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+
+                particles.forEach(p => {
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+
+                    if (p.x < 0 || p.x > width) p.speedX *= -1;
+                    if (p.y < 0 || p.y > height) p.speedY *= -1;
+
+                    ctx.globalAlpha = p.opacity;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+
+                requestAnimationFrame(animateParticles);
+            }
+
+            animateParticles();
+        });
+    </script>
+</body>
+</html>
