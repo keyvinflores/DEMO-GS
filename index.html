@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo | Visión General - Rebranding Snapdocs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="ambient-glows">
+        <div class="glow-orb glow-1" id="orb1"></div>
+        <div class="glow-orb glow-2" id="orb2"></div>
+    </div>
+
+    <div class="presentation-frame">
+        
+        <!-- HEADER -->
+        <div class="presentation-header">
+            <div class="agency-logo" id="header-logo">
+                <i class="fa-solid fa-store"></i> GRAFIC <span>STORE</span>
+            </div>
+            <div class="brand-indicator" id="header-indicator">Demo | Visión general</div>
+        </div>
+
+        <!-- SLIDES -->
+        <div class="slides-viewport" id="viewport">
+
+            <!-- SLIDE 1: PORTADA -->
+            <div class="slide active" data-theme="grafic" data-title="Demo | Visión general">
+                <div style="text-align: center; max-width: 850px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+                    <span class="cyber-badge">Grafic Store Presents</span>
+                    <h1 class="slide-title-large" style="margin-bottom: 25px; line-height: 1.2;">
+                        <span style="font-weight: 400; opacity: 0.85;">DEMO</span> 
+                        <span style="font-weight: 300; opacity: 0.4; margin: 0 10px;">|</span> 
+                        <span style="font-weight: 500;" class="text-glow-cyber">Visión general</span>
+                    </h1>
+                    <p class="text-desc" style="max-width: 650px; font-size: 16px; text-align: center; margin-bottom: 0;">
+                        Un ecosistema conceptual ultra-moderno diseñado para redefinir el posicionamiento digital, unificar la estética de marca y agilizar los procesos de firma hipotecaria.
+                    </p>
+                </div>
+            </div>
+
+            <!-- SLIDE 2: SERVICIOS -->
+            <div class="slide" data-theme="grafic" data-title="Servicios Creativos">
+                <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+                    <h2 class="slide-title-standard">Optimización de Servicios</h2>
+                    <div class="service-list">
+                        <div class="glass-panel service-item">
+                            <div class="service-icon"><i class="fa-solid fa-cube"></i></div>
+                            <h4 style="font-weight:700; font-size: 17px; margin-top: 10px;">Sistemas de Diseño Avanzados</h4>
+                            <p style="font-size: 13.5px; color: var(--text-muted); text-align: left; line-height: 1.6;">
+                                Estructuras estéticas modulares, consistentes y escalables bajo estándares de diseño Apple de alta precisión.
+                            </p>
+                        </div>
+                        <div class="glass-panel service-item">
+                            <div class="service-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                            <h4 style="font-weight:700; font-size: 17px; margin-top: 10px;">Interfaces de Cero Fricción</h4>
+                            <p style="font-size: 13.5px; color: var(--text-muted); text-align: left; line-height: 1.6;">
+                                Micro-interacciones sutiles diseñadas meticulosamente para agilizar transacciones y disminuir el rebote del usuario.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 3: CRM -->
+            <div class="slide" data-theme="grafic" data-title="Optimización CRM">
+                <div class="grid-2">
+                    <div>
+                        <span class="cyber-badge" style="background: rgba(139, 92, 246, 0.1);">Workflow Inteligente</span>
+                        <h2 class="slide-title-standard" style="margin-bottom:15px;">CRM Grafic Store</h2>
+                        <p class="text-desc" style="margin-bottom:20px;">Controlamos el pipeline visual adaptativo y las notificaciones para agilizar la interacción y acortar los procesos de contratos hipotecarios de la marca.</p>
+                        <div class="crm-features">
+                            <div class="glass-panel" style="padding: 20px;">
+                                <i class="fa-solid fa-gauge-high" style="color: var(--accent-grafic); font-size: 20px; margin-bottom: 10px;"></i>
+                                <h4 style="font-size:14px; font-weight:600;">Control Integrado</h4>
+                                <p style="font-size: 12px; color: var(--text-muted); margin-top:5px;">Centralización estratégica de todos tus leads.</p>
+                            </div>
+                            <div class="glass-panel" style="padding: 20px;">
+                                <i class="fa-solid fa-arrows-spin" style="color: var(--accent-grafic); font-size: 20px; margin-bottom: 10px;"></i>
+                                <h4 style="font-size:14px; font-weight:600;">Eficacia Operativa</h4>
+                                <p style="font-size: 12px; color: var(--text-muted); margin-top:5px;">Automatización estricta sin perder calidez.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 
+                        ============================================================
+                        SLIDE 3 - IMAGEN CRM
+                        Coloca tu imagen en /public/img/ y actualiza el src abajo.
+                        Ejemplo: src="/img/crm-dashboard.png"
+                        ============================================================
+                    -->
+                    <div class="media-placeholder">
+                        <img src="/img/slide-3-crm.png" alt="CRM Grafic Store" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="placeholder-info" style="display:none;">
+                            <i class="fa-solid fa-image" style="color: var(--accent-grafic)"></i>
+                            <p style="font-weight:500; font-size:15px;">slide-3-crm.png</p>
+                            <p style="font-size:12px; color:var(--text-muted);">Coloca la imagen en /public/img/</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 4: PROPUESTA SNAPDOCS INTRO -->
+            <div class="slide" data-theme="snapdocs" data-title="Propuesta Snapdocs">
+                <div class="slide-focused-layout">
+                    <div class="focused-media-container">
+                        <!-- 
+                            ============================================================
+                            SLIDE 4 - BRAND IDENTITY / PALETA DE COLORES
+                            Coloca tu imagen en /public/img/ y actualiza el src abajo.
+                            Ejemplo: src="/img/slide-4-brand-identity.png"
+                            ============================================================
+                        -->
+                        <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
+                            <img src="/img/slide-4-brand-identity.png" alt="Snapdocs Brand Identity" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="placeholder-info" style="display:none;">
+                                <i class="fa-solid fa-palette" style="color: var(--accent-snapdocs)"></i>
+                                <p style="font-weight:500; font-size:15px;">slide-4-brand-identity.png</p>
+                                <p style="font-size:12px; color:var(--text-muted);">Coloca la imagen en /public/img/</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 5: PORTADA FACEBOOK -->
+            <div class="slide" data-theme="snapdocs" data-title="Portada de Facebook">
+                <div class="slide-focused-layout">
+                    <div class="focused-media-container">
+                        <!-- 
+                            ============================================================
+                            SLIDE 5 - PORTADA FACEBOOK (820 x 312 px recomendado)
+                            Coloca tu imagen en /public/img/ y actualiza el src abajo.
+                            Ejemplo: src="/img/slide-5-facebook-cover.jpg"
+                            ============================================================
+                        -->
+                        <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
+                            <img src="/img/slide-5-facebook-cover.jpg" alt="Portada de Facebook" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="placeholder-info" style="display:none;">
+                                <i class="fa-brands fa-facebook" style="color: var(--accent-snapdocs)"></i>
+                                <p style="font-weight:500; font-size:15px;">slide-5-facebook-cover.jpg</p>
+                                <p style="font-size:12px; color:var(--text-muted);">(820 x 312 px)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 6: MOCKUP DISPOSITIVO -->
+            <div class="slide" data-theme="snapdocs" data-title="Mockup Digital">
+                <div class="slide-focused-layout">
+                    <div class="focused-media-container">
+                        <!-- 
+                            ============================================================
+                            SLIDE 6 - MOCKUP DISPOSITIVO (Laptop / Desktop)
+                            Coloca tu imagen en /public/img/ y actualiza el src abajo.
+                            Ejemplo: src="/img/slide-6-mockup-device.png"
+                            ============================================================
+                        -->
+                        <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
+                            <img src="/img/slide-6-mockup-device.png" alt="Mockup en Dispositivo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="placeholder-info" style="display:none;">
+                                <i class="fa-solid fa-desktop" style="color: var(--accent-snapdocs)"></i>
+                                <p style="font-weight:500; font-size:15px;">slide-6-mockup-device.png</p>
+                                <p style="font-size:12px; color:var(--text-muted);">Dispositivo digital / Laptop</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 7: CARRUSEL 3 IMÁGENES -->
+            <div class="slide" data-theme="snapdocs" data-title="Carrusel">
+                <div class="slide-focused-layout">
+                    <div class="focused-media-container">
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; height: 100%;">
+                            
+                            <!-- 
+                                ============================================================
+                                SLIDE 7 - CARRUSEL: 3 imágenes (cuadradas idealmente)
+                                Coloca tus imágenes en /public/img/ y actualiza los src.
+                                slide-7-carousel-1.png
+                                slide-7-carousel-2.png
+                                slide-7-carousel-3.png
+                                ============================================================
+                            -->
+
+                            <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
+                                <img src="/img/slide-7-carousel-1.png" alt="Campaña 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="placeholder-info" style="display:none;">
+                                    <i class="fa-solid fa-image" style="color: var(--accent-snapdocs); font-size: 32px;"></i>
+                                    <p style="font-size:13px;">slide-7-carousel-1.png</p>
+                                </div>
+                            </div>
+
+                            <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
+                                <img src="/img/slide-7-carousel-2.png" alt="Campaña 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="placeholder-info" style="display:none;">
+                                    <i class="fa-solid fa-image" style="color: var(--accent-snapdocs); font-size: 32px;"></i>
+                                    <p style="font-size:13px;">slide-7-carousel-2.png</p>
+                                </div>
+                            </div>
+
+                            <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
+                                <img src="/img/slide-7-carousel-3.png" alt="Campaña 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="placeholder-info" style="display:none;">
+                                    <i class="fa-solid fa-image" style="color: var(--accent-snapdocs); font-size: 32px;"></i>
+                                    <p style="font-size:13px;">slide-7-carousel-3.png</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 8: MOCKUP ESTACIÓN DE TRABAJO -->
+            <div class="slide" data-theme="snapdocs" data-title="Mockup Estaciones">
+                <div class="slide-focused-layout">
+                    <div class="focused-media-container">
+                        <!-- 
+                            ============================================================
+                            SLIDE 8 - MOCKUP ESTACIÓN DE TRABAJO
+                            Coloca tu imagen en /public/img/ y actualiza el src abajo.
+                            Ejemplo: src="/img/slide-8-workstation.png"
+                            ============================================================
+                        -->
+                        <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
+                            <img src="/img/slide-8-workstation.png" alt="Mockup Corporativo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="placeholder-info" style="display:none;">
+                                <i class="fa-solid fa-laptop-code" style="color: var(--accent-snapdocs)"></i>
+                                <p style="font-weight:500; font-size:15px;">slide-8-workstation.png</p>
+                                <p style="font-size:12px; color:var(--text-muted);">Estación de trabajo corporativa</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 9: BRAND HIGHLIGHTS / TAGLINE -->
+            <div class="slide" data-theme="snapdocs" data-title="Propiedades Clave">
+                <div class="slide-focused-layout">
+                    <div class="focused-media-container">
+                        <!-- 
+                            ============================================================
+                            SLIDE 9 - BRAND HIGHLIGHT / TAGLINE ("Make mortgage a snap.")
+                            Coloca tu imagen en /public/img/ y actualiza el src abajo.
+                            Ejemplo: src="/img/slide-9-brand-highlight.png"
+                            ============================================================
+                        -->
+                        <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
+                            <img src="/img/slide-9-brand-highlight.png" alt="Make mortgage a snap." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="placeholder-info" style="display:none;">
+                                <i class="fa-solid fa-star" style="color: var(--accent-snapdocs)"></i>
+                                <p style="font-weight:500; font-size:15px;">slide-9-brand-highlight.png</p>
+                                <p style="font-size:12px; color:var(--text-muted);">Make mortgage a snap.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 10: CIERRE / CONTACTO -->
+            <div class="slide" data-theme="grafic" data-title="Cierre">
+                <div class="slide-focused-layout" style="justify-content: center; gap: 40px;">
+                    <div style="text-align: center;">
+                        <span class="cyber-badge" style="box-shadow: 0 0 25px rgba(139, 92, 246, 0.35);">Evoluciona tu Marca hoy</span>
+                        <h1 class="slide-title-large" style="font-size: 58px; margin-bottom: 25px;"><span class="text-glow-cyber">Grafic Store</span></h1>
+                    </div>
+                    <div class="glass-panel" style="display: flex; gap: 50px; padding: 25px 60px; border-radius: 100px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                        <span style="font-size:14px; font-weight:600; letter-spacing: 0.5px;"><i class="fa-solid fa-globe" style="color: var(--accent-grafic); margin-right:8px;"></i> graficstore.com</span>
+                        <span style="font-size:14px; font-weight:600; letter-spacing: 0.5px;"><i class="fa-solid fa-envelope" style="color: var(--accent-grafic); margin-right:8px;"></i> contacto@graficstore.com</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="presentation-footer">
+            <div class="slide-counter" id="slide-num">01 / 10</div>
+            <div class="progress-dots" id="dots-container"></div>
+            <div class="nav-buttons">
+                <button class="nav-btn" id="prev-btn" title="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="nav-btn" id="next-btn" title="Siguiente"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
