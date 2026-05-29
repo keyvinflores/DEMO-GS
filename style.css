@@ -395,3 +395,27 @@ body {
     from { opacity: 0; transform: translateY(25px); }
     to   { opacity: 1; transform: translateY(0); }
 }
+
+
+/* FULLSCREEN IMAGE SLIDES */
+
+.slide-full{
+    padding:10px;
+}
+
+.slide-full .slide-focused-layout{
+    width:100%;
+    height:100%;
+    padding:0;
+}
+
+.slide-full .focused-media-container{
+    width:100%;
+    height:100%;
+}
+
+.slide-full .media-placeholder img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
