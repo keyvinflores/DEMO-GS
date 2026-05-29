@@ -301,23 +301,36 @@
                 </div>
             </div>
 
-
-           <!-- SLIDE VIDEO VERTICAL -->
+            
+<!-- SLIDE VIDEO VERTICAL -->
 <div class="slide" data-theme="snapdocs" data-title="Video">
     <div class="slide-focused-layout">
 
-        <!-- Contenedor vertical -->
         <div style="height: 90%; aspect-ratio: 9/16; position: relative; margin: 0 auto;">
 
             <div class="media-placeholder"
                 style="position:relative; width:100%; height:100%; border-color: rgba(255,107,0,0.2); border-radius: 20px; overflow: hidden;">
 
-                <iframe
-                    src="https://www.youtube.com/embed/e7B8Pl4Uk24?autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1"
-                    style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
-                    allow="autoplay; fullscreen; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
+                <video
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    webkit-playsinline
+                    controls
+                    style="
+                        position:absolute;
+                        top:0;
+                        left:0;
+                        width:100%;
+                        height:100%;
+                        object-fit:cover;
+                        border-radius:20px;
+                    ">
+
+                    <source src="./video.mp4" type="video/mp4">
+
+                </video>
 
             </div>
 
@@ -326,6 +339,7 @@
     </div>
 </div>
 
+            
             <!-- SLIDE 10: CIERRE / CONTACTO -->
             <div class="slide slide-closing" data-theme="grafic" data-title="Closing">
                 <div class="slide-focused-layout" style="justify-content: center; gap: 24px;">
