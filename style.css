@@ -393,3 +393,24 @@ body {
     from { opacity: 0; transform: translateY(25px); }
     to   { opacity: 1; transform: translateY(0); }
 }
+
+/* CLOSING SLIDE */
+
+.slide-closing{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.slide-closing .slide-focused-layout{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height:100%;
+    width:100%;
+}
+
+.slide-closing .glass-panel{
+    margin:0 auto;
+}
