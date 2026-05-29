@@ -3,29 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Demo | Overview - Rebranding Snapdocs</title>
+    <title>Demo | Overview - Rebranding Snapdocs</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-
     <style>
-        /* LIGHTBOX */
         #lightbox {
             display: none;
             position: fixed;
             inset: 0;
             z-index: 9999;
-            background: rgba(0, 0, 0, 0.92);
+            background: rgba(0,0,0,0.92);
             backdrop-filter: blur(20px);
             align-items: center;
             justify-content: center;
             cursor: zoom-out;
         }
-        #lightbox.open {
-            display: flex;
-        }
+        #lightbox.open { display: flex; }
         #lightbox-content {
             position: relative;
             max-width: 92vw;
@@ -52,10 +48,8 @@
         }
         #lightbox-close {
             position: fixed;
-            top: 24px;
-            right: 28px;
-            width: 44px;
-            height: 44px;
+            top: 24px; right: 28px;
+            width: 44px; height: 44px;
             background: rgba(255,255,255,0.08);
             border: 1px solid rgba(255,255,255,0.15);
             border-radius: 50%;
@@ -72,14 +66,19 @@
             background: rgba(255,255,255,0.18);
             transform: scale(1.1);
         }
-        .media-placeholder {
+        .media-placeholder { cursor: zoom-in; }
+        /* Overlay para hacer clickeable el iframe del video en el slide */
+        .video-click-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 6;
             cursor: zoom-in;
+            background: transparent;
         }
     </style>
 </head>
 <body>
 
-    
     <!-- LIGHTBOX -->
     <div id="lightbox">
         <button id="lightbox-close"><i class="fa-solid fa-xmark"></i></button>
@@ -97,7 +96,7 @@
     </div>
 
     <div class="presentation-frame">
-        
+
         <!-- HEADER -->
         <div class="presentation-header">
             <div class="agency-logo" id="header-logo">
@@ -110,248 +109,144 @@
         <div class="slides-viewport" id="viewport">
 
             <!-- SLIDE 1: PORTADA -->
-            <div class="slide active" data-theme="grafic" data-title="Demo | Visión general">
-                <div style="text-align: center; max-width: 850px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+            <div class="slide active" data-theme="grafic" data-title="Demo | Overview">
+                <div style="text-align:center; max-width:850px; margin:0 auto; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;">
                     <span class="cyber-badge">Grafic Store Presents</span>
-                    <h1 class="slide-title-large" style="margin-bottom: 25px; line-height: 1.2;">
-                        <span style="font-weight: 400; opacity: 0.85;">DEMO</span> 
-                        <span style="font-weight: 300; opacity: 0.4; margin: 0 10px;">|</span> 
-                        <span style="font-weight: 500;" class="text-glow-cyber">Overview</span>
+                    <h1 class="slide-title-large" style="margin-bottom:25px; line-height:1.2;">
+                        <span style="font-weight:400; opacity:0.85;">DEMO</span>
+                        <span style="font-weight:300; opacity:0.4; margin:0 10px;">|</span>
+                        <span style="font-weight:500;" class="text-glow-cyber">Overview</span>
                     </h1>
-                    <p class="text-desc" style="max-width: 650px; font-size: 16px; text-align: center; margin-bottom: 0;">
+                    <p class="text-desc" style="max-width:650px; font-size:16px; text-align:center; margin-bottom:0;">
                         An ultra-modern conceptual ecosystem designed to redefine digital positioning, unify brand aesthetics, and streamline mortgage signing workflows.
                     </p>
                 </div>
             </div>
 
-            <!-- SLIDE 2: IMAGEN FULL -->
-
+            <!-- SLIDE 2: CRM -->
             <div class="slide" data-theme="grafic" data-title="CRM Optimization">
-                <div class="slide-focused-layout">    
-                    <div class="focused-media-container">
-                        <!-- SLIDE 2/3 - IMAGEN FULL. Reemplaza el src con tu link de ibb.co -->
-                        <div class="media-placeholder">
-                            <img src="https://i.ibb.co/Xrz2wTmD/CRM-2-0.jpg" alt="CRM Grafic Store" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="placeholder-info" style="display:none;">
-                                <i class="fa-solid fa-image" style="color: var(--accent-grafic)"></i>
-                                <p style="font-weight:500; font-size:15px;">slide-3-crm.png</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SLIDE 3: PROPUESTA SNAPDOCS INTRO -->
-                <div class="slide" data-theme="snapdocs" data-title="Snapdocs proposal">
                 <div class="slide-focused-layout">
                     <div class="focused-media-container">
-                        <!-- 
-                            ============================================================
-                            SLIDE 4 - BRAND IDENTITY / PALETA DE COLORES
-                            Coloca tu imagen en /public/img/ y actualiza el src abajo.
-                            Ejemplo: src="/slide-4-brand-identity.png"
-                            ============================================================
-                        -->
-                        <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
-                            <img src="https://i.ibb.co/27Hw1ghk/SNAP.png" alt="Snapdocs Brand Identity" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="placeholder-info" style="display:none;">
-                                <i class="fa-solid fa-palette" style="color: var(--accent-snapdocs)"></i>
-                                <p style="font-weight:500; font-size:15px;">slide-4-brand-identity.png</p>
-                                <p style="font-size:12px; color:var(--text-muted);">Coloca la imagen en /public/img/</p>
-                            </div>
+                        <div class="media-placeholder">
+                            <img src="https://i.ibb.co/Xrz2wTmD/CRM-2-0.jpg" alt="CRM Grafic Store" onerror="this.style.display='none';">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- SLIDE 4: PORTADA FACEBOOK -->
+            <!-- SLIDE 3: SNAPDOCS PROPOSAL -->
+            <div class="slide" data-theme="snapdocs" data-title="Snapdocs Proposal">
+                <div class="slide-focused-layout">
+                    <div class="focused-media-container">
+                        <div class="media-placeholder" style="border-color:rgba(255,107,0,0.2);">
+                            <img src="https://i.ibb.co/27Hw1ghk/SNAP.png" alt="Snapdocs Brand Identity" onerror="this.style.display='none';">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 4: FACEBOOK COVER -->
             <div class="slide" data-theme="snapdocs" data-title="Facebook Cover">
                 <div class="slide-focused-layout">
                     <div class="focused-media-container">
-                        <!-- 
-                            ============================================================
-                            SLIDE 5 - PORTADA FACEBOOK (820 x 312 px recomendado)
-                            Coloca tu imagen en /public/img/ y actualiza el src abajo.
-                            Ejemplo: src="https://i.ibb.co/PvLNTbbC/SNAP-PORTADA-2x.jpg"
-                            ============================================================
-                        -->
-                        <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
-                            <img src="https://i.ibb.co/PvLNTbbC/SNAP-PORTADA-2x.jpg" alt="Portada de Facebook" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="placeholder-info" style="display:none;">
-                                <i class="fa-brands fa-facebook" style="color: var(--accent-snapdocs)"></i>
-                                <p style="font-weight:500; font-size:15px;">slide-5-facebook-cover.jpg</p>
-                                <p style="font-size:12px; color:var(--text-muted);">(820 x 312 px)</p>
-                            </div>
+                        <div class="media-placeholder" style="border-color:rgba(255,107,0,0.2);">
+                            <img src="https://i.ibb.co/PvLNTbbC/SNAP-PORTADA-2x.jpg" alt="Portada de Facebook" onerror="this.style.display='none';">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- SLIDE 5: MOCKUP DISPOSITIVO -->
+            <!-- SLIDE 5: MOCKUP -->
             <div class="slide" data-theme="snapdocs" data-title="Mockup">
                 <div class="slide-focused-layout">
                     <div class="focused-media-container">
-                        <!-- 
-                            ============================================================
-                            SLIDE 6 - MOCKUP DISPOSITIVO (Laptop / Desktop)
-                            Coloca tu imagen en /public/img/ y actualiza el src abajo.
-                            Ejemplo: src="/slide-6-mockup-device.png"
-                            ============================================================
-                        -->
-                        <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
-                            <img src="https://i.ibb.co/WNVPKm93/VISTA-PREVIA.jpg" alt="Mockup en Dispositivo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="placeholder-info" style="display:none;">
-                                <i class="fa-solid fa-desktop" style="color: var(--accent-snapdocs)"></i>
-                                <p style="font-weight:500; font-size:15px;">slide-6-mockup-device.png</p>
-                                <p style="font-size:12px; color:var(--text-muted);">Dispositivo digital / Laptop</p>
-                            </div>
+                        <div class="media-placeholder" style="border-color:rgba(255,107,0,0.2);">
+                            <img src="https://i.ibb.co/WNVPKm93/VISTA-PREVIA.jpg" alt="Mockup" onerror="this.style.display='none';">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- SLIDE 6: CARRUSEL 3 IMÁGENES -->
-            <div class="slide" data-theme="snapdocs" data-title="carousel">
+            <!-- SLIDE 6: CARRUSEL -->
+            <div class="slide" data-theme="snapdocs" data-title="Carousel">
                 <div class="slide-focused-layout">
                     <div class="focused-media-container">
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; height: 100%;">
-                            
-                            <!-- 
-                                ============================================================
-                                SLIDE 7 - CARRUSEL: 3 imágenes (cuadradas idealmente)
-                                Coloca tus imágenes en /public/img/ y actualiza los src.
-                                slide-7-carousel-1.png
-                                slide-7-carousel-2.png
-                                slide-7-carousel-3.png
-                                ============================================================
-                            -->
-
-                            <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
-                                <img src="https://i.ibb.co/21PJw4vz/1.png" alt="Campaña 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                <div class="placeholder-info" style="display:none;">
-                                    <i class="fa-solid fa-image" style="color: var(--accent-snapdocs); font-size: 32px;"></i>
-                                    <p style="font-size:13px;">slide-7-carousel-1.png</p>
-                                </div>
+                        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; width:100%; height:100%;">
+                            <div class="media-placeholder" style="border-color:rgba(255,107,0,0.2);">
+                                <img src="https://i.ibb.co/21PJw4vz/1.png" alt="Campaña 1" onerror="this.style.display='none';">
                             </div>
-
-                            <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
-                                <img src="https://i.ibb.co/hxghMWzP/2.png" alt="Campaña 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                <div class="placeholder-info" style="display:none;">
-                                    <i class="fa-solid fa-image" style="color: var(--accent-snapdocs); font-size: 32px;"></i>
-                                    <p style="font-size:13px;">slide-7-carousel-2.png</p>
-                                </div>
+                            <div class="media-placeholder" style="border-color:rgba(255,107,0,0.2);">
+                                <img src="https://i.ibb.co/hxghMWzP/2.png" alt="Campaña 2" onerror="this.style.display='none';">
                             </div>
-
-                            <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
-                                <img src="https://i.ibb.co/Psm5RkVF/3.png" alt="Campaña 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                <div class="placeholder-info"     style="display:none;">
-                                    <i class="fa-solid fa-image" style="color: var(--accent-snapdocs); font-size: 32px;"></i>
-                                    <p style="font-size:13px;">slide-7-carousel-3.png</p>
-                                </div>
+                            <div class="media-placeholder" style="border-color:rgba(255,107,0,0.2);">
+                                <img src="https://i.ibb.co/Psm5RkVF/3.png" alt="Campaña 3" onerror="this.style.display='none';">
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- SLIDE 7: MOCKUP ESTACIÓN DE TRABAJO -->
-            <div class="slide" data-theme="snapdocs" data-title="highlights">
+            <!-- SLIDE 7: HIGHLIGHTS -->
+            <div class="slide" data-theme="snapdocs" data-title="Highlights">
                 <div class="slide-focused-layout">
                     <div class="focused-media-container">
-                        <!-- 
-                            ============================================================
-                            SLIDE 8 - MOCKUP ESTACIÓN DE TRABAJO
-                            Coloca tu imagen en /public/img/ y actualiza el src abajo.
-                            Ejemplo: src="/slide-8-workstation.png"
-                            ============================================================
-                        -->
-                        <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
-                            <img src="https://i.ibb.co/6pr0L7j/ICONOSS2.png" alt="Mockup Corporativo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="placeholder-info" style="display:none;">
-                                <i class="fa-solid fa-laptop-code" style="color: var(--accent-snapdocs)"></i>
-                                <p style="font-weight:500; font-size:15px;">slide-8-workstation.png</p>
-                                <p style="font-size:12px; color:var(--text-muted);">Estación de trabajo corporativa</p>
-                            </div>
+                        <div class="media-placeholder" style="border-color:rgba(255,107,0,0.2);">
+                            <img src="https://i.ibb.co/6pr0L7j/ICONOSS2.png" alt="Highlights" onerror="this.style.display='none';">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- SLIDE 8: BRAND HIGHLIGHTS / TAGLINE -->
-            <div class="slide" data-theme="snapdocs" data-title="Instagram feed">
+            <!-- SLIDE 8: INSTAGRAM FEED -->
+            <div class="slide" data-theme="snapdocs" data-title="Instagram Feed">
                 <div class="slide-focused-layout">
                     <div class="focused-media-container">
-                        <!-- 
-                            ============================================================
-                            SLIDE 9 - BRAND HIGHLIGHT / TAGLINE ("Make mortgage a snap.")
-                            Coloca tu imagen en /public/img/ y actualiza el src abajo.
-                            Ejemplo: src="/slide-9-brand-highlight.png"
-                            ============================================================
-                        -->
-                        <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
-                            <img src="https://i.ibb.co/S4HT1vhL/FEED-IG.jpg" alt="Make mortgage a snap." onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                            <div class="placeholder-info" style="display:none;">
-                                <i class="fa-solid fa-star" style="color: var(--accent-snapdocs)"></i>
-                                <p style="font-weight:500; font-size:15px;">slide-9-brand-highlight.png</p>
-                                <p style="font-size:12px; color:var(--text-muted);">Make mortgage a snap.</p>
-                            </div>
+                        <div class="media-placeholder" style="border-color:rgba(255,107,0,0.2);">
+                            <img src="https://i.ibb.co/S4HT1vhL/FEED-IG.jpg" alt="Instagram Feed" onerror="this.style.display='none';">
                         </div>
                     </div>
                 </div>
             </div>
 
-            
-<!-- SLIDE VIDEO YOUTUBE -->
-<div class="slide" data-theme="snapdocs" data-title="Video">
-
-    <div class="slide-focused-layout">
-
-        <div style="height: 90%; aspect-ratio: 9/16; position: relative; margin: 0 auto;">
-
-            <div class="media-placeholder"
-                style="
-                    position:relative;
-                    width:100%;
-                    height:100%;
-                    border-color: rgba(255,107,0,0.2);
-                    border-radius: 20px;
-                    overflow: hidden;
-                ">
-
-                <iframe
-                    src="https://www.youtube.com/embed/e7B8Pl4Uk24?autoplay=1&mute=1&loop=1&playlist=e7B8Pl4Uk24&controls=1&rel=0"
-                    title="Snapdocs Video"
-                    frameborder="0"
-                    allow="autoplay; encrypted-media; fullscreen"
-                    allowfullscreen
-                    style="
-                        position:absolute;
-                        top:0;
-                        left:0;
-                        width:100%;
-                        height:100%;
-                        border:none;
-                        border-radius:20px;
-                    ">
-                </iframe>
-
+            <!-- SLIDE 9: VIDEO VERTICAL -->
+            <div class="slide" data-theme="snapdocs" data-title="Video">
+                <div class="slide-focused-layout">
+                    <div style="height:90%; aspect-ratio:9/16; position:relative; margin:0 auto;">
+                        <div class="media-placeholder" style="border-color:rgba(255,107,0,0.2); border-radius:20px; overflow:hidden; position:relative; width:100%; height:100%;">
+                            <iframe
+                                id="slide-video-iframe"
+                                src="https://www.youtube.com/embed/e7B8Pl4Uk24?rel=0&modestbranding=1&controls=1"
+                                title="Snapdocs Video"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen
+                                style="position:absolute; top:0; left:0; width:100%; height:100%; border:none; border-radius:20px; z-index:5;">
+                            </iframe>
+                            <!-- overlay para lightbox — NO bloquea los controles normales del iframe -->
+                            <!-- El lightbox se activa desde el botón de abajo -->
+                        </div>
+                        <!-- Botón fullscreen debajo del video -->
+                        <button onclick="openLightbox('video','https://www.youtube.com/embed/e7B8Pl4Uk24')"
+                            style="position:absolute; bottom:-38px; left:50%; transform:translateX(-50%);
+                                   background:rgba(255,107,0,0.15); border:1px solid rgba(255,107,0,0.4);
+                                   color:#ff6b00; padding:6px 20px; border-radius:20px; cursor:pointer;
+                                   font-size:12px; font-weight:600; font-family:'Poppins',sans-serif;
+                                   letter-spacing:0.5px; transition:all 0.3s;">
+                            <i class="fa-solid fa-expand" style="margin-right:6px;"></i>Ver en pantalla completa
+                        </button>
+                    </div>
+                </div>
             </div>
 
-        </div>
-
-    </div>
-
-</div>
-            
-            <!-- SLIDE 10: CIERRE / CONTACTO -->
-            <div class="slide slide-closing" data-theme="grafic" data-title="Closing">
-                <div class="slide-focused-layout" style="justify-content: center; gap: 24px;">
-                    <div style="text-align: center;">
-                        <span class="cyber-badge" style="box-shadow: 0 0 25px rgba(139, 92, 246, 0.35);">Evoluciona tu Marca hoy con:</span>
-                        <h1 class="slide-title-large" style="font-size: 58px; margin-bottom: 25px;"><span class="text-glow-cyber">Grafic Store</span></h1>
+            <!-- SLIDE 10: CIERRE -->
+            <div class="slide" data-theme="grafic" data-title="Closing">
+                <div class="slide-focused-layout" style="justify-content:center; gap:24px;">
+                    <div style="text-align:center;">
+                        <span class="cyber-badge" style="box-shadow:0 0 25px rgba(139,92,246,0.35);">Evoluciona tu Marca hoy con:</span>
+                        <h1 class="slide-title-large" style="font-size:58px; margin-bottom:25px;">
+                            <span class="text-glow-cyber">Grafic Store</span>
+                        </h1>
                     </div>
-                    
                 </div>
             </div>
 
@@ -362,8 +257,8 @@
             <div class="slide-counter" id="slide-num">01 / 10</div>
             <div class="progress-dots" id="dots-container"></div>
             <div class="nav-buttons">
-                <button class="nav-btn" id="prev-btn" title="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
-                <button class="nav-btn" id="next-btn" title="Siguiente"><i class="fa-solid fa-chevron-right"></i></button>
+                <button class="nav-btn" id="prev-btn"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="nav-btn" id="next-btn"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
         </div>
 
@@ -372,11 +267,11 @@
     <script src="app.js"></script>
 
     <script>
-        // LIGHTBOX
-        const lightbox      = document.getElementById('lightbox');
-        const lbImg         = document.getElementById('lightbox-img');
-        const lbVideo       = document.getElementById('lightbox-video');
-        const lbClose       = document.getElementById('lightbox-close');
+        // ── LIGHTBOX ──────────────────────────────────────────────
+        const lightbox = document.getElementById('lightbox');
+        const lbImg    = document.getElementById('lightbox-img');
+        const lbVideo  = document.getElementById('lightbox-video');
+        const lbClose  = document.getElementById('lightbox-close');
 
         function openLightbox(type, src) {
             lightbox.classList.add('open');
@@ -386,8 +281,7 @@
                 lbVideo.style.display = 'none';
                 lbVideo.src = '';
             } else {
-                // video: añadir autoplay al src
-                lbVideo.src = src.includes('?') ? src + '&autoplay=1' : src + '?autoplay=1';
+                lbVideo.src = src + '?autoplay=1&rel=0&modestbranding=1';
                 lbVideo.style.display = 'block';
                 lbImg.style.display = 'none';
                 lbImg.src = '';
@@ -404,110 +298,21 @@
             document.body.style.overflow = '';
         }
 
-        // Click fuera cierra
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) closeLightbox();
-        });
-
+        lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
         lbClose.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-        // Tecla Escape cierra
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeLightbox();
-        });
-
-        // Asignar click a todas las imágenes dentro de media-placeholder
+        // Click en imágenes → lightbox
         document.addEventListener('DOMContentLoaded', () => {
-            // Imágenes
             document.querySelectorAll('.media-placeholder img').forEach(img => {
                 img.style.cursor = 'zoom-in';
-                img.addEventListener('click', (e) => {
+                img.addEventListener('click', e => {
                     e.stopPropagation();
-                    if (img.src && !img.src.includes('undefined')) {
-                        openLightbox('img', img.src);
-                    }
+                    if (img.src && !img.src.includes('undefined')) openLightbox('img', img.src);
                 });
             });
-            
-
-            // Videos locales MP4
-
-    <script>
-
-    // LIGHTBOX
-    const lightbox      = document.getElementById('lightbox');
-    const lbImg         = document.getElementById('lightbox-img');
-    const lbVideo       = document.getElementById('lightbox-video');
-    const lbClose       = document.getElementById('lightbox-close');
-
-    function openLightbox(type, src) {
-        lightbox.classList.add('open');
-
-        if (type === 'img') {
-            lbImg.src = src;
-            lbImg.style.display = 'block';
-
-            lbVideo.style.display = 'none';
-            lbVideo.src = '';
-
-        } else {
-
-            lbVideo.src = src.includes('?')
-                ? src + '&autoplay=1'
-                : src + '?autoplay=1';
-
-            lbVideo.style.display = 'block';
-
-            lbImg.style.display = 'none';
-            lbImg.src = '';
-        }
-
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-        lightbox.classList.remove('open');
-
-        lbImg.src = '';
-        lbVideo.src = '';
-
-        lbImg.style.display = 'none';
-        lbVideo.style.display = 'none';
-
-        document.body.style.overflow = '';
-    }
-
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) closeLightbox();
-    });
-
-    lbClose.addEventListener('click', closeLightbox);
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeLightbox();
-    });
-
-    // SOLO IMÁGENES
-    document.addEventListener('DOMContentLoaded', () => {
-
-        document.querySelectorAll('.media-placeholder img').forEach(img => {
-
-            img.style.cursor = 'zoom-in';
-
-            img.addEventListener('click', (e) => {
-
-                e.stopPropagation();
-
-                if (img.src && !img.src.includes('undefined')) {
-                    openLightbox('img', img.src);
-                }
-
-            });
-
         });
+    </script>
 
-    });
-
-</script>
 </body>
 </html>
