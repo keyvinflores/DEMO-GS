@@ -302,43 +302,47 @@
             </div>
 
             
-<!-- SLIDE VIDEO VERTICAL -->
+<!-- SLIDE VIDEO YOUTUBE -->
 <div class="slide" data-theme="snapdocs" data-title="Video">
+
     <div class="slide-focused-layout">
 
         <div style="height: 90%; aspect-ratio: 9/16; position: relative; margin: 0 auto;">
 
             <div class="media-placeholder"
-                style="position:relative; width:100%; height:100%; border-color: rgba(255,107,0,0.2); border-radius: 20px; overflow: hidden;">
+                style="
+                    position:relative;
+                    width:100%;
+                    height:100%;
+                    border-color: rgba(255,107,0,0.2);
+                    border-radius: 20px;
+                    overflow: hidden;
+                ">
 
-                <video
-                    autoplay
-                    muted
-                    loop
-                    playsinline
-                    webkit-playsinline
-                    controls
+                <iframe
+                    src="https://www.youtube.com/embed/e7B8Pl4Uk24?autoplay=1&mute=1&loop=1&playlist=e7B8Pl4Uk24&controls=1&rel=0"
+                    title="Snapdocs Video"
+                    frameborder="0"
+                    allow="autoplay; encrypted-media; fullscreen"
+                    allowfullscreen
                     style="
                         position:absolute;
                         top:0;
                         left:0;
                         width:100%;
                         height:100%;
-                        object-fit:cover;
+                        border:none;
                         border-radius:20px;
                     ">
-
-                    <source src="./video.mp4" type="video/mp4">
-
-                </video>
+                </iframe>
 
             </div>
 
         </div>
 
     </div>
-</div>
 
+</div>
             
             <!-- SLIDE 10: CIERRE / CONTACTO -->
             <div class="slide slide-closing" data-theme="grafic" data-title="Closing">
@@ -427,50 +431,83 @@
             
 
             // Videos locales MP4
-document.querySelectorAll('.media-placeholder video').forEach(video => {
 
-    const overlay = document.createElement('div');
+    <script>
 
-    overlay.style.cssText = `
-        position:absolute;
-        inset:0;
-        z-index:6;
-        cursor:zoom-in;
-    `;
+    // LIGHTBOX
+    const lightbox      = document.getElementById('lightbox');
+    const lbImg         = document.getElementById('lightbox-img');
+    const lbVideo       = document.getElementById('lightbox-video');
+    const lbClose       = document.getElementById('lightbox-close');
 
-    overlay.title = 'Click para pantalla completa';
-
-    overlay.addEventListener('click', (e) => {
-        e.stopPropagation();
-
-        const src = video.querySelector('source').src;
-
-        lbVideo.outerHTML = `
-            <video
-                id="lightbox-video"
-                autoplay
-                muted
-                loop
-                controls
-                playsinline
-                style="
-                    width:min(92vw, calc(92vh * 9 / 16));
-                    height:min(92vh, calc(92vw * 16 / 9));
-                    border-radius:16px;
-                    object-fit:cover;
-                    box-shadow:0 40px 80px rgba(0,0,0,0.8);
-                ">
-                <source src="${src}" type="video/mp4">
-            </video>
-        `;
-
+    function openLightbox(type, src) {
         lightbox.classList.add('open');
+
+        if (type === 'img') {
+            lbImg.src = src;
+            lbImg.style.display = 'block';
+
+            lbVideo.style.display = 'none';
+            lbVideo.src = '';
+
+        } else {
+
+            lbVideo.src = src.includes('?')
+                ? src + '&autoplay=1'
+                : src + '?autoplay=1';
+
+            lbVideo.style.display = 'block';
+
+            lbImg.style.display = 'none';
+            lbImg.src = '';
+        }
+
         document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('open');
+
+        lbImg.src = '';
+        lbVideo.src = '';
+
+        lbImg.style.display = 'none';
+        lbVideo.style.display = 'none';
+
+        document.body.style.overflow = '';
+    }
+
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
     });
 
-    video.parentElement.appendChild(overlay);
-    
+    lbClose.addEventListener('click', closeLightbox);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeLightbox();
+    });
+
+    // SOLO IMÁGENES
+    document.addEventListener('DOMContentLoaded', () => {
+
+        document.querySelectorAll('.media-placeholder img').forEach(img => {
+
+            img.style.cursor = 'zoom-in';
+
+            img.addEventListener('click', (e) => {
+
+                e.stopPropagation();
+
+                if (img.src && !img.src.includes('undefined')) {
+                    openLightbox('img', img.src);
+                }
+
+            });
+
         });
-    </script>
+
+    });
+
+</script>
 </body>
 </html>
