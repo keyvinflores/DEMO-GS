@@ -7,10 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextBtn        = document.getElementById('next-btn');
     const slideCounter   = document.getElementById('slide-num');
     const dotsContainer  = document.getElementById('dots-container');
-    const headerLogo     = document.getElementById('header-logo');
     const headerIndicator= document.getElementById('header-indicator');
     const orb1           = document.getElementById('orb1');
     const orb2           = document.getElementById('orb2');
+
+    // Logo fijo — nunca se toca el innerHTML
+    const LOGO_SRC = 'https://i.ibb.co/gbS6cgdw/LOGO-GS-3-2.png';
 
     // Autogenerar dots
     slides.forEach((_, idx) => {
@@ -41,18 +43,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         headerIndicator.textContent = title;
 
+        // Solo cambian los glows — el logo nunca cambia
         if (theme === 'snapdocs') {
             document.documentElement.style.setProperty('--glow-1', '#ff6b00');
             document.documentElement.style.setProperty('--glow-2', '#ff8533');
-            headerLogo.innerHTML = 'SNAPDOCS';
-            headerLogo.style.color = 'var(--accent-snapdocs)';
             orb1.style.transform = 'translate(120px, 60px)';
             orb2.style.transform = 'translate(-80px, -120px)';
         } else {
             document.documentElement.style.setProperty('--glow-1', '#8b5cf6');
             document.documentElement.style.setProperty('--glow-2', '#3b82f6');
-            headerLogo.innerHTML = '<i class="fa-solid fa-store"></i> GRAFIC <span>STORE</span>';
-            headerLogo.style.color = 'var(--text-main)';
             orb1.style.transform = 'translate(0px, 0px)';
             orb2.style.transform = 'translate(0px, 0px)';
         }
