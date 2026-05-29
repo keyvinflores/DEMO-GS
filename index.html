@@ -424,20 +424,52 @@
                     }
                 });
             });
+            
 
-            // Iframes de video
-            document.querySelectorAll('.media-placeholder iframe').forEach(iframe => {
-                // Crear overlay clickeable encima del iframe
-                const overlay = document.createElement('div');
-                overlay.style.cssText = 'position:absolute;inset:0;z-index:6;cursor:zoom-in;';
-                overlay.title = 'Click para pantalla completa';
-                overlay.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const src = iframe.src.replace('?autoplay=1','').replace('&autoplay=1','');
-                    openLightbox('video', src);
-                });
-                iframe.parentElement.appendChild(overlay);
-            });
+            // Videos locales MP4
+document.querySelectorAll('.media-placeholder video').forEach(video => {
+
+    const overlay = document.createElement('div');
+
+    overlay.style.cssText = `
+        position:absolute;
+        inset:0;
+        z-index:6;
+        cursor:zoom-in;
+    `;
+
+    overlay.title = 'Click para pantalla completa';
+
+    overlay.addEventListener('click', (e) => {
+        e.stopPropagation();
+
+        const src = video.querySelector('source').src;
+
+        lbVideo.outerHTML = `
+            <video
+                id="lightbox-video"
+                autoplay
+                muted
+                loop
+                controls
+                playsinline
+                style="
+                    width:min(92vw, calc(92vh * 9 / 16));
+                    height:min(92vh, calc(92vw * 16 / 9));
+                    border-radius:16px;
+                    object-fit:cover;
+                    box-shadow:0 40px 80px rgba(0,0,0,0.8);
+                ">
+                <source src="${src}" type="video/mp4">
+            </video>
+        `;
+
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    });
+
+    video.parentElement.appendChild(overlay);
+    
         });
     </script>
 </body>
