@@ -400,7 +400,7 @@ body {
 /* FULLSCREEN IMAGE SLIDES */
 
 .slide-full{
-    padding:10px;
+    padding:0px;
 }
 
 .slide-full .slide-focused-layout{
