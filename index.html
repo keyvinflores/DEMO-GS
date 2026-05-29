@@ -9,8 +9,85 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* LIGHTBOX */
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(20px);
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+        }
+        #lightbox.open {
+            display: flex;
+        }
+        #lightbox-content {
+            position: relative;
+            max-width: 92vw;
+            max-height: 92vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #lightbox-img {
+            max-width: 92vw;
+            max-height: 92vh;
+            border-radius: 16px;
+            object-fit: contain;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+            display: none;
+        }
+        #lightbox-video {
+            width: min(92vw, calc(92vh * 9 / 16));
+            height: min(92vh, calc(92vw * 16 / 9));
+            border-radius: 16px;
+            border: none;
+            display: none;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+        }
+        #lightbox-close {
+            position: fixed;
+            top: 24px;
+            right: 28px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 50%;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10000;
+        }
+        #lightbox-close:hover {
+            background: rgba(255,255,255,0.18);
+            transform: scale(1.1);
+        }
+        .media-placeholder {
+            cursor: zoom-in;
+        }
+    </style>
 </head>
 <body>
+
+    
+    <!-- LIGHTBOX -->
+    <div id="lightbox">
+        <button id="lightbox-close"><i class="fa-solid fa-xmark"></i></button>
+        <div id="lightbox-content">
+            <img id="lightbox-img" src="" alt="fullscreen">
+            <iframe id="lightbox-video" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        </div>
+    </div>
 
     <canvas id="bg-canvas"></canvas>
 
@@ -225,29 +302,31 @@
             </div>
 
 
-            <!-- SLIDE VIDEO -->
+            <!-- SLIDE VIDEO VERTICAL -->
             <div class="slide" data-theme="snapdocs" data-title="Video">
                 <div class="slide-focused-layout">
-                    <div class="focused-media-container">
-                        <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2);">
+                    <!-- Contenedor vertical: ancho fijo proporcional 9:16 centrado -->
+                    <div style="height: 90%; aspect-ratio: 9/16; position: relative; margin: 0 auto;">
+                        <div class="media-placeholder" style="border-color: rgba(255,107,0,0.2); border-radius: 20px; overflow: hidden;">
                             <!-- 
                                 ============================================================
-                                SLIDE VIDEO
-                                Opción A - Video de YouTube/Vimeo: reemplaza el iframe src
-                                Opción B - Video directo: cambia <iframe> por <video src="TU_LINK">
+                                SLIDE VIDEO VERTICAL (9:16 — Reels, TikTok, Shorts)
+                                Reemplaza TU_VIDEO_ID con el ID de tu video de YouTube
+                                Ejemplo: https://www.youtube.com/embed/dQw4w9WgXcQ
+                                Para Vimeo: https://player.vimeo.com/video/123456789
                                 ============================================================
                             -->
                             <iframe
-                                src="https://www.youtube.com/embed/TU_VIDEO_ID"
-                                style="position:absolute; top:0; left:0; width:100%; height:100%; border:none; border-radius:20px;"
-                                allow="autoplay; fullscreen"
+                                src="https://www.youtube.com/embed/TU_VIDEO_ID?rel=0&modestbranding=1"
+                                style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"
+                                allow="autoplay; fullscreen; picture-in-picture"
                                 allowfullscreen>
                             </iframe>
                             <!-- PLACEHOLDER visible hasta que pongas el video -->
-                            <div class="placeholder-info" id="video-placeholder">
+                            <div class="placeholder-info">
                                 <i class="fa-solid fa-circle-play" style="color: var(--accent-snapdocs); font-size: 56px;"></i>
-                                <p style="font-weight:600; font-size:16px; color:var(--text-main);">Reemplaza el src del iframe con tu link de YouTube</p>
-                                <p style="font-size:12px; color:var(--text-muted);">youtube.com/embed/VIDEO_ID &nbsp;|&nbsp; vimeo.com/video/VIDEO_ID</p>
+                                <p style="font-weight:600; font-size:14px; color:var(--text-main); margin-top:10px;">Pega tu VIDEO_ID en el src del iframe</p>
+                                <p style="font-size:11px; color:var(--text-muted);">9:16 · Reels / Shorts / TikTok</p>
                             </div>
                         </div>
                     </div>
@@ -283,5 +362,79 @@
     </div>
 
     <script src="app.js"></script>
+
+    <script>
+        // LIGHTBOX
+        const lightbox      = document.getElementById('lightbox');
+        const lbImg         = document.getElementById('lightbox-img');
+        const lbVideo       = document.getElementById('lightbox-video');
+        const lbClose       = document.getElementById('lightbox-close');
+
+        function openLightbox(type, src) {
+            lightbox.classList.add('open');
+            if (type === 'img') {
+                lbImg.src = src;
+                lbImg.style.display = 'block';
+                lbVideo.style.display = 'none';
+                lbVideo.src = '';
+            } else {
+                // video: añadir autoplay al src
+                lbVideo.src = src.includes('?') ? src + '&autoplay=1' : src + '?autoplay=1';
+                lbVideo.style.display = 'block';
+                lbImg.style.display = 'none';
+                lbImg.src = '';
+            }
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('open');
+            lbImg.src = '';
+            lbVideo.src = '';
+            lbImg.style.display = 'none';
+            lbVideo.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        // Click fuera cierra
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        lbClose.addEventListener('click', closeLightbox);
+
+        // Tecla Escape cierra
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Asignar click a todas las imágenes dentro de media-placeholder
+        document.addEventListener('DOMContentLoaded', () => {
+            // Imágenes
+            document.querySelectorAll('.media-placeholder img').forEach(img => {
+                img.style.cursor = 'zoom-in';
+                img.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (img.src && !img.src.includes('undefined')) {
+                        openLightbox('img', img.src);
+                    }
+                });
+            });
+
+            // Iframes de video
+            document.querySelectorAll('.media-placeholder iframe').forEach(iframe => {
+                // Crear overlay clickeable encima del iframe
+                const overlay = document.createElement('div');
+                overlay.style.cssText = 'position:absolute;inset:0;z-index:6;cursor:zoom-in;';
+                overlay.title = 'Click para pantalla completa';
+                overlay.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const src = iframe.src.replace('?autoplay=1','').replace('&autoplay=1','');
+                    openLightbox('video', src);
+                });
+                iframe.parentElement.appendChild(overlay);
+            });
+        });
+    </script>
 </body>
 </html>
